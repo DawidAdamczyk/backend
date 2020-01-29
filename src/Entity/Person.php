@@ -42,7 +42,7 @@ class Person
     private $updated_at;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\groupofpeople", inversedBy="people")
+     * @ORM\ManyToOne(targetEntity="App\Entity\GroupOfPeople", inversedBy="people")
      */
     private $person_group;
 
