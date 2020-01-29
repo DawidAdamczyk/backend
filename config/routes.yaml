@@ -1,18 +1,44 @@
 index:
    path: /
    controller: App\Controller\BasicController::index
+   methods: GET
 
 # Person 
 
 person_list:
     path: /Persons
     controller: App\Controller\PersonController::list
+    methods: GET
 
 person_new:
     path: /Persons/new
     controller: App\Controller\PersonController::new
+    methods: GET|PUT
 
 person_edit:
     path: /Persons/{id}/edit
     controller: App\Controller\PersonController::edit
+    methods: GET|PUT
+
+# Group
+
+group_list:
+    path: /Groups
+    controller: App\Controller\GroupOfPeopleController::list
+    methods: GET
+
+group_new:
+    path: /Groups/new
+    controller: App\Controller\GroupOfPeopleController::new
+    methods: GET|PUT
+
+group_edit:
+    path: /Groups/{id}/edit
+    controller: App\Controller\GroupOfPeopleController::edit
+    methods: GET|PUT
+
+delete:
+    path: /Groups/{id}/delete
+    controller: App\Controller\GroupOfPeopleController::delete
+    methods: DELETE
 

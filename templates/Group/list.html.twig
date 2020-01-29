@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">Info</th>
+      <th scope="col">Created at</th>
+      <th scope="col">Updated at</th>
+    </tr>
+  </thead>
+  <tbody>
+   {% for group in groups %}
+    <tr scope="row">
+      <td>{{group.name}}</td>
+      <td>{{group.info}}</td>
+      <td>{{group.createdat.date}}</td>
+       <td>{{group.updatedat.date}}</td>
+
+      <td><a href="/groups/{{group.id}}/edit" class="btn btn-primary active" role="button" aria-pressed="true">edit</a></td>
+      <form action="/Groups/{{group.id}}/delete" method="POST">
+      {# <td><a href="/groups/{{group.id}}/delete" class="btn btn-danger active" role="button" aria-pressed="true">delete</a></td> #}
+      <td><button value="dupa"></td>
+      <input type="hidden" name="_method" value="DELETE">
+      </form>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

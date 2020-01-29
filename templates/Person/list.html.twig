@@ -4,32 +4,27 @@
 <table class="table">
   <thead>
     <tr>
-      <th scope="col">First</th>
-      <th scope="col">Last</th>
-      <th scope="col">Handle</th>
+      <th scope="col">Login</th>
+      <th scope="col">Firstname</th>
+      <th scope="col">Lastname</th>
+      <th scope="col">Created at</th>
+      <th scope="col">Updated at</th>
+      <th scope="col">Edit</th>
+      <th scope="col">Delete</th>
     </tr>
   </thead>
   <tbody>
    {% for person in persons %}
     <tr scope="row">
+      <td>{{person.login}}</td>
       <td>{{person.firstname}}</td>
       <td>{{person.lastname}}</td>
+      <td>{{person.createdat.date}}</td>
+      <td>{{person.updatedat.date}}</td>
       <td><a href="/person/{{person.id}}/edit" class="btn btn-primary active" role="button" aria-pressed="true">edit</a></td>
       <td><a href="/person/{{person.id}}/delete" class="btn btn-danger active" role="button" aria-pressed="true">delete</a></td>
     </tr>
     {% endfor %}
-    <tr>
-      <th scope="row">2</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td>Larry</td>
-      <td>the Bird</td>
-      <td>@twitter</td>
-    </tr>
   </tbody>
 </table>
 {% endblock %}
