@@ -6,7 +6,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use App\Entity\Person;
-use App\Entity\Group;
+use App\Entity\GroupOfPeople;
 use App\Form\PersonType;
 
 class PersonController extends AbstractController
@@ -34,11 +34,14 @@ class PersonController extends AbstractController
             $person->setLogin($data['login']);
             $person->setFirstname($data['firstname']);
             $person->setLastname($data['lastname']);
+            $person->setCreatedAt( new \DateTime('now'));
+            $person->setUpdatedAt(new \DateTime('now'));
 
-            $group = $this->getDoctrine()
-            ->getRepository(Group::class)
-            ->find('1');
+            $people = $this->getDoctrine()
+            ->getRepository(GroupOfPeople::class)
+            ->findOneBy(['name' => $data['group']]);
 
+            $person->setPersonGroup($people);
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($person);
             $entityManager->flush();
