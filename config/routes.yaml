@@ -11,3 +11,8 @@ person_list:
 person_new:
     path: /Persons/new
     controller: App\Controller\PersonController::new
+
+person_edit:
+    path: /Persons/{id}/edit
+    controller: App\Controller\PersonController::edit
+

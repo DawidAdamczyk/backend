@@ -26,7 +26,6 @@ class PersonController extends AbstractController
 
         $form = $this->createForm(PersonType::class);
 
-         
         $form->handleRequest($request);
         if ($form->isSubmitted()  && $form->isValid()) {
             $data = $form->getData();
@@ -34,7 +33,7 @@ class PersonController extends AbstractController
             $person->setLogin($data['login']);
             $person->setFirstname($data['firstname']);
             $person->setLastname($data['lastname']);
-            $person->setCreatedAt( new \DateTime('now'));
+            $person->setCreatedAt(new \DateTime('now'));
             $person->setUpdatedAt(new \DateTime('now'));
 
             $people = $this->getDoctrine()
@@ -45,11 +44,45 @@ class PersonController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($person);
             $entityManager->flush();
+
             return $this->redirectToRoute('index');
         }
-        $form->getErrors();
+
         return $this->render('Person/new.html.twig', ['form' =>  $form->createView()]);
+    }
 
+    public function edit($id, Request $request)
+    {
+        $person = $this->getDoctrine()
+        ->getRepository(Person::class)
+        ->find($id);
 
+        $form = $this->createForm(PersonType::class);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $data = $form->getData();
+            
+            $person->setLogin($data['login']);
+            $person->setFirstname($data['firstname']);
+            $person->setLastname($data['lastname']);
+            $person->setUpdatedAt(new \DateTime('now'));
+
+            $people = $this->getDoctrine()
+            ->getRepository(GroupOfPeople::class)
+            ->findOneBy(['name' => $data['group']]);
+
+            $person->setPersonGroup($people);
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($person);
+            $entityManager->flush();
+            
+            return $this->redirectToRoute('index');
+        }
+
+        return $this->render('Person/edit.html.twig', [
+            'form' =>  $form->createView(),
+            'person' => $person,
+        ]);
     }
 }
