@@ -6,7 +6,11 @@
     {{ form_row(form.login, {'attr': {'class': 'form-control mt-2', 'value': person.login}}) }}
     {{ form_row(form.firstname, {'attr': {'class': 'form-control mt-2', 'value': person.firstname}}) }}
     {{ form_row(form.lastname, {'attr': {'class': 'form-control mt-2', 'value': person.lastname}}) }}
-    {{ form_row(form.group, {'attr': {'class': 'form-control mt-2', 'value': person.persongroup.name}}) }}
+    {% if person.persongroup is null %}
+      {{ form_row(form.group, {'attr': {'class': 'form-control mt-2', 'value': ''}}) }}
+    {% else %}
+      {{ form_row(form.group, {'attr': {'class': 'form-control mt-2', 'value': person.persongroup.name}}) }}
+    {% endif %}
     {{ form_row(form._token) }}
      <button class="mt-2" type="submit">Edit!</button>
   </div>

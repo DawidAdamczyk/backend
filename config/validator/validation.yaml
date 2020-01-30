@@ -1,0 +1,37 @@
+App\Entity\Person: 
+  constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: login
+  properties:
+    login:
+      - Length:
+                min: 3
+                max: 100
+      - NotNull: ~
+      - NotBlank: ~
+    last_name:
+     - length:
+                min: 3
+                max: 255
+     - NotBlank: ~
+     - NotNull: ~
+    first_name:
+     - length:
+                min: 3
+                max: 255
+     - NotNull: ~
+     - NotBlank: ~
+
+    # walidacja created_at i updated_at nie jest wymagana, ponieważ te pola dodawane są w kodzie
+    # i użytkownik nie ma żadnego wpływu na te pola
+
+App\Entity\GroupOfPerson:
+  # na schemacie bazy, pole name nie było unikalne, ale myślę że sensowne jest gdy nazwa grupy jest unikalna
+  constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: name
+  properties:
+    name:
+     - NotNull: ~
+     - NotBlank: ~
+     - length:
+                min: 3
+                max: 255

@@ -29,7 +29,6 @@ class GroupOfPeopleController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
-            
             $group->setName($data['name']);
             $group->setInfo($data['info']);
             $group->setCreatedAt(new \DateTime('now'));

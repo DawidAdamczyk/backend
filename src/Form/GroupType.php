@@ -2,7 +2,7 @@
 
 namespace App\Form;
 
-// use App\Entity\Pers;
+use App\Entity\GroupOfPeople;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -24,7 +24,7 @@ class GroupType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            
+            // 'data_class' => GroupOfPeople::class
         ));
     }
 }
