@@ -13,6 +13,12 @@ use App\Form\GroupType;
 
 class GroupOfPeopleController extends AbstractController
 {
+    private $validator;
+
+    public function __construct(ValidatorInterface $validator)
+    {
+        $this->validator = $validator;
+    }
     public function list()
     {
         $repository = $this->getDoctrine()->getRepository(GroupOfPeople::class);
@@ -36,9 +42,21 @@ class GroupOfPeopleController extends AbstractController
             $group->setCreatedAt(new \DateTime('now'));
             $group->setUpdatedAt(new \DateTime('now'));
 
+            $errors = $this->validator->validate($group);
+
+            if (count($errors) > 0) {
+                $errorsString = (string) $errors;
+        
+                $this->addFlash('fail', $errorsString);
+            
+                return $this->redirectToRoute('index');
+            }
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($group);
             $entityManager->flush();
+
+            $this->addFlash('success', 'Group created');
             
             return $this->redirectToRoute('index');
         }
@@ -63,32 +81,44 @@ class GroupOfPeopleController extends AbstractController
             $group->setCreatedAt(new \DateTime('now'));
             $group->setUpdatedAt(new \DateTime('now'));
 
+            $errors = $this->validator->validate($group);
+
+            if (count($errors) > 0) {
+                $errorsString = (string) $errors;
+        
+                $this->addFlash('fail', $errorsString);
+            
+                return $this->redirectToRoute('index');
+            }
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($group);
             $entityManager->flush();
+
+            $this->addFlash('success', 'Group updated');
             
             return $this->redirectToRoute('index');
         }
 
-        return $this->render('Group/new.html.twig', ['form' =>  $form->createView()]);
+        return $this->render('Group/edit.html.twig', [
+            'form' =>  $form->createView(),
+            'group' => $group
+        ]);
     }
 
-    public function delete($id, ValidatorInterface $validator)
+    public function delete($id)
      {
-        //     $validator = Validation::createValidator();
-        //     $violations = $validator->validate($id, [
-        //         new DeleteGroup(),
-        //     ]);
-
         $constraint = new DeleteGroup();
 
-        $violations = $validator->validate($id, $constraint);
+        $violations = $this->validator->validate($id, $constraint);
         $errors =  $violations;
         
         if (count($errors) > 0) {
             $errorsString = (string) $errors;
     
-            return new Response($errorsString);
+            $this->addFlash('fail', $errorsString);
+            
+            return $this->redirectToRoute('index');
         }
         $entityManager = $this->getDoctrine()->getManager();
 
@@ -98,6 +128,8 @@ class GroupOfPeopleController extends AbstractController
 
         $entityManager->remove($group);
         $entityManager->flush();
+
+        $this->addFlash('success', 'Group deleted');
 
         return $this->redirectToRoute('index');
 

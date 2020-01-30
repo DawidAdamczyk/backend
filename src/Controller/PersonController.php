@@ -12,6 +12,13 @@ use App\Form\PersonType;
 
 class PersonController extends AbstractController
 {
+    private $validator;
+
+    public function __construct(ValidatorInterface $validator)
+    {
+        $this->validator = $validator;
+    }
+
     public function list()
     {
         $repository = $this->getDoctrine()->getRepository(Person::class);
@@ -21,7 +28,7 @@ class PersonController extends AbstractController
         return $this->render('Person/list.html.twig', ['persons' => $persons]);
     }
 
-    public function new(Request $request, ValidatorInterface $validator)
+    public function new(Request $request)
     {
         $person = new Person();
 
@@ -43,19 +50,24 @@ class PersonController extends AbstractController
 
             $person->setPersonGroup($people);
 
-            $errors = $validator->validate($person);
+            $errors = $this->validator->validate($person);
 
-            $errorsWithGroup = $validator->validatePropertyValue($person,'person_group',$data['group'] );
+            $errorsWithGroup = $this->validator->validatePropertyValue($person,'person_group',$data['group'] );
 
             if (count($errors) > 0 || count($errorsWithGroup) > 0) {
-                $errorsString = (string) $errors.(string) $errorsWithGroup;
         
-                return new Response($errorsString);
+                $this->addFlash('fail', (string) $errors);
+
+                $this->addFlash('fail', (string) $errorsWithGroup);
+
+                return $this->redirectToRoute('index');
             }
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($person);
             $entityManager->flush();
+
+            $this->addFlash('success', 'Person created');
 
             return $this->redirectToRoute('index');
         }
@@ -85,17 +97,25 @@ class PersonController extends AbstractController
             ->findOneBy(['name' => $data['group']]);
 
             $person->setPersonGroup($people);
-            $errors = $validator->validate($person);
+            $errors = $this->validator->validate($person);
 
-            if (count($errors) > 0) {
-                $errorsString = (string) $errors;
+            $errorsWithGroup = $this->validator->validatePropertyValue($person,'person_group',$data['group'] );
+
+            if (count($errors) > 0 || count($errorsWithGroup) > 0) {
+                $errorsString = (string) $errors.(string) $errorsWithGroup;
         
-                return new Response($errorsString);
+                $this->addFlash('fail', (string) $errors);
+
+                $this->addFlash('fail', (string) $errorsWithGroup);
+
+                return $this->redirectToRoute('index');
             }
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($person);
             $entityManager->flush();
+
+            $this->addFlash('success', 'Person updated');
             
             return $this->redirectToRoute('index');
         }
@@ -116,6 +136,8 @@ class PersonController extends AbstractController
 
         $entityManager->remove($person);
         $entityManager->flush();
+
+        $this->addFlash('success', 'Person deleted');
 
         return $this->redirectToRoute('index');
     }

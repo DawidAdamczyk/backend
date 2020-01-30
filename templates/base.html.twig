@@ -12,6 +12,15 @@
     <body>
         {% block body %}
            {% include('inc/navbar.html.twig') %}
+
+           {% for message in app.flashes('success') %}
+             <div class="alert alert-success"> {{message}} </div>
+           {% endfor %}
+
+           {% for message in app.flashes('fail') %}
+             <div class="alert alert-danger"> {{message}} </div>
+           {% endfor %}
+
         {% endblock %}
         {% block javascripts %}{% endblock %}
     </body>
