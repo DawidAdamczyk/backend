@@ -1,6 +1,7 @@
 App\Entity\Person: 
   constraints:
         - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: login
+        # -  App\Validator\Constraints\ContainsyAlphanumericValidator: ~
   properties:
     login:
       - Length:
@@ -20,6 +21,10 @@ App\Entity\Person:
                 max: 255
      - NotNull: ~
      - NotBlank: ~
+    person_group:
+     - App\Validator\GroupExists: ~
+     
+      
 
     # walidacja created_at i updated_at nie jest wymagana, ponieważ te pola dodawane są w kodzie
     # i użytkownik nie ma żadnego wpływu na te pola

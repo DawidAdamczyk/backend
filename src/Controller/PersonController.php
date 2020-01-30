@@ -36,7 +36,7 @@ class PersonController extends AbstractController
             $person->setLastname($data['lastname']);
             $person->setCreatedAt(new \DateTime('now'));
             $person->setUpdatedAt(new \DateTime('now'));
-            $errors = $validator->validate($person);
+            // $errors = $validator->validate($person);
             $people = $this->getDoctrine()
             ->getRepository(GroupOfPeople::class)
             ->findOneBy(['name' => $data['group']]);
@@ -45,8 +45,10 @@ class PersonController extends AbstractController
 
             $errors = $validator->validate($person);
 
-            if (count($errors) > 0) {
-                $errorsString = (string) $errors;
+            $errorsWithGroup = $validator->validatePropertyValue($person,'person_group',$data['group'] );
+
+            if (count($errors) > 0 || count($errorsWithGroup) > 0) {
+                $errorsString = (string) $errors.(string) $errorsWithGroup;
         
                 return new Response($errorsString);
             }
