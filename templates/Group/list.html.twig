@@ -1,38 +1,38 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-<a class="btn btn-primary float-right mr-2 mb-2" href="/Group/new" role="button">Add</a>
-{% if groups %}
-<table class="table mt-5">
-  <thead>
-    <tr>
-      <th scope="col">Name</th>
-      <th scope="col">Info</th>
-      <th scope="col">Created at</th>
-      <th scope="col">Updated at</th>
-      <th scope="col">Edit</th>
-      <th scope="col">Delete</th>
-    </tr>
-  </thead>
-  <tbody>
-   {% for group in groups %}
-    <tr scope="row">
-      <td>{{group.name}}</td>
-      <td>{{group.info}}</td>
-      <td>{{group.createdat.date}}</td>
-      <td>{{group.updatedat.date}}</td>
-      <td><a href="/Group/{{group.id}}/edit" class="btn btn-primary active" role="button" aria-pressed="true">edit</a></td>
-      {# celowo nie używałem symfony forms w tym miejscu #}
-      <form action="/Group/{{group.id}}/delete" method="POST">
-        <td><button class="btn btn-danger">Delete</button></td>
-        <input type="hidden" name="_method" value="DELETE">
-      </form>
-    </tr>
-    {% endfor %}
-  </tbody>
-</table>
-{% else %}
-  There are no groups in the system
-{% endif %}
+  <a class="btn btn-primary float-right mr-2 mb-2" href="/Group/new" role="button">Add</a>
+  {% if groups %}
+    <table class="table mt-5">
+      <thead>
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col">Info</th>
+          <th scope="col">Created at</th>
+          <th scope="col">Updated at</th>
+          <th scope="col">Edit</th>
+          <th scope="col">Delete</th>
+        </tr>
+      </thead>
+      <tbody>
+      {% for group in groups %}
+        <tr scope="row">
+          <td>{{group.name}}</td>
+          <td>{{group.info}}</td>
+          <td>{{group.createdat.date}}</td>
+          <td>{{group.updatedat.date}}</td>
+          <td><a href="/Group/{{group.id}}/edit" class="btn btn-primary active" role="button" aria-pressed="true">edit</a></td>
+          {# celowo nie używałem symfony forms w tym miejscu #}
+          <form action="/Group/{{group.id}}/delete" method="POST">
+            <td><button class="btn btn-danger">Delete</button></td>
+            <input type="hidden" name="_method" value="DELETE">
+          </form>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    There are no groups in the system
+  {% endif %}
 
 {% endblock %}

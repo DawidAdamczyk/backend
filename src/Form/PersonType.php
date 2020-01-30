@@ -20,7 +20,9 @@ class PersonType extends AbstractType
             ->add('login', TextType::class)
             ->add('firstname', TextType::class)
             ->add('lastname', TextType::class)
-            ->add('group', TextType::class)
+            ->add('group', TextType::class, [
+                'required' => false
+            ])
         ;
     }
 

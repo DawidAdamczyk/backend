@@ -54,10 +54,10 @@ class PersonController extends AbstractController
             $errorsWithGroup = $this->validator->validatePropertyValue($person,'person_group',$data['group'] );
 
             if (count($errors) > 0 || count($errorsWithGroup) > 0) {
-        
-                $this->addFlash('fail', (string) $errors);
 
-                $this->addFlash('fail', (string) $errorsWithGroup);
+                $errorsString = (string) $errors.(string) $errorsWithGroup;
+
+                $this->addFlash('fail', $errorsString);
 
                 return $this->redirectToRoute('index');
             }
@@ -101,9 +101,10 @@ class PersonController extends AbstractController
             $errorsWithGroup = $this->validator->validatePropertyValue($person,'person_group',$data['group'] );
 
             if (count($errors) > 0 || count($errorsWithGroup) > 0) {
-                $this->addFlash('fail', (string) $errors);
 
-                $this->addFlash('fail', (string) $errorsWithGroup);
+                $errorsString = (string) $errors.(string) $errorsWithGroup;
+
+                $this->addFlash('fail', $errorsString);
 
                 return $this->redirectToRoute('index');
             }

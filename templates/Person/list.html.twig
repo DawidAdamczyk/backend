@@ -1,38 +1,39 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-{% if people %}
-<table class="table">
-  <thead>
-    <tr>
-      <th scope="col">Login</th>
-      <th scope="col">Firstname</th>
-      <th scope="col">Lastname</th>
-      <th scope="col">Created at</th>
-      <th scope="col">Updated at</th>
-      <th scope="col">Edit</th>
-      <th scope="col">Delete</th>
-    </tr>
-  </thead>
-  <tbody>
-   {% for person in people %}
-    <tr scope="row">
-      <td>{{person.login}}</td>
-      <td>{{person.firstname}}</td>
-      <td>{{person.lastname}}</td>
-      <td>{{person.createdat.date}}</td>
-      <td>{{person.updatedat.date}}</td>
-      <td><a href="/Person/{{person.id}}/edit" class="btn btn-primary active" role="button" aria-pressed="true">edit</a></td>
-      {# celowo nie użyłem symfony forms w tym miejscu #}
-      <form action="/Person/{{person.id}}/delete" method="POST">
-        <td><button class="btn btn-danger">delete</button></td>
-        <input type="hidden" name="_method" value="DELETE">
-      </form>
-    </tr>
-    {% endfor %}
-  </tbody>
-</table>
-{% else %}
-  There are no users in the system
-{% endif %}
+  {% if people %}
+    <a class="btn btn-primary float-right mr-2 mb-2" href="/Person/new" role="button">Add</a>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Login</th>
+          <th scope="col">Firstname</th>
+          <th scope="col">Lastname</th>
+          <th scope="col">Created at</th>
+          <th scope="col">Updated at</th>
+          <th scope="col">Edit</th>
+          <th scope="col">Delete</th>
+        </tr>
+      </thead>
+      <tbody>
+      {% for person in people %}
+        <tr scope="row">
+          <td>{{person.login}}</td>
+          <td>{{person.firstname}}</td>
+          <td>{{person.lastname}}</td>
+          <td>{{person.createdat.date}}</td>
+          <td>{{person.updatedat.date}}</td>
+          <td><a href="/Person/{{person.id}}/edit" class="btn btn-primary active" role="button" aria-pressed="true">edit</a></td>
+          {# celowo nie użyłem symfony forms w tym miejscu #}
+          <form action="/Person/{{person.id}}/delete" method="POST">
+            <td><button class="btn btn-danger">delete</button></td>
+            <input type="hidden" name="_method" value="DELETE">
+          </form>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    There are no users in the system
+  {% endif %}
 {% endblock %}

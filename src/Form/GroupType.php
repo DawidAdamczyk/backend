@@ -17,14 +17,16 @@ class GroupType extends AbstractType
         $builder
             ->setMethod('PUT')
             ->add('name', TextType::class)
-            ->add('info', TextareaType::class)
+            ->add('info', TextareaType::class,[
+                'required' => false
+            ])
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            // 'data_class' => GroupOfPeople::class
+            
         ));
     }
 }

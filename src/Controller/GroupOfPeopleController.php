@@ -7,7 +7,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use App\Validator\DeleteGroup;
-use App\Entity\Person;
 use App\Entity\GroupOfPeople;
 use App\Form\GroupType;
 
