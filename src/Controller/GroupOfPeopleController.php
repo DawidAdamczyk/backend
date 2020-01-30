@@ -83,7 +83,7 @@ class GroupOfPeopleController extends AbstractController
         $entityManager->remove($group);
         $entityManager->flush();
 
-        return new Response('dupa');
+        return $this->redirectToRoute('index');
 
 
     }

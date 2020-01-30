@@ -16,13 +16,12 @@
       <td>{{group.name}}</td>
       <td>{{group.info}}</td>
       <td>{{group.createdat.date}}</td>
-       <td>{{group.updatedat.date}}</td>
-
+      <td>{{group.updatedat.date}}</td>
       <td><a href="/groups/{{group.id}}/edit" class="btn btn-primary active" role="button" aria-pressed="true">edit</a></td>
+      {# celowo nie używałem symfony forms w tym miejscu #}
       <form action="/Groups/{{group.id}}/delete" method="POST">
-      {# <td><a href="/groups/{{group.id}}/delete" class="btn btn-danger active" role="button" aria-pressed="true">delete</a></td> #}
-      <td><button value="dupa"></td>
-      <input type="hidden" name="_method" value="DELETE">
+        <td><button class="btn btn-danger">Delete</button></td>
+        <input type="hidden" name="_method" value="DELETE">
       </form>
     </tr>
     {% endfor %}

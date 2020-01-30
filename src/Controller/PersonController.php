@@ -85,4 +85,18 @@ class PersonController extends AbstractController
             'person' => $person,
         ]);
     }
+
+    public function delete($id)
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+
+        $person = $entityManager
+        ->getRepository(Person::class)
+        ->find($id);
+
+        $entityManager->remove($person);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('index');
+    }
 }

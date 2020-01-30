@@ -20,6 +20,11 @@ person_edit:
     controller: App\Controller\PersonController::edit
     methods: GET|PUT
 
+person_delete:
+    path: /Persons/{id}/delete
+    controller: App\Controller\PersonController::delete
+    methods: DELETE
+
 # Group
 
 group_list:
@@ -37,7 +42,7 @@ group_edit:
     controller: App\Controller\GroupOfPeopleController::edit
     methods: GET|PUT
 
-delete:
+group_delete:
     path: /Groups/{id}/delete
     controller: App\Controller\GroupOfPeopleController::delete
     methods: DELETE

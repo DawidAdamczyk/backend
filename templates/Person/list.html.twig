@@ -22,7 +22,12 @@
       <td>{{person.createdat.date}}</td>
       <td>{{person.updatedat.date}}</td>
       <td><a href="/person/{{person.id}}/edit" class="btn btn-primary active" role="button" aria-pressed="true">edit</a></td>
-      <td><a href="/person/{{person.id}}/delete" class="btn btn-danger active" role="button" aria-pressed="true">delete</a></td>
+      {# <td><a href="/person/{{person.id}}/delete" class="btn btn-danger active" role="button" aria-pressed="true">delete</a></td> #}
+      <form action="/Persons/{{person.id}}/delete" method="POST">
+        {# <td><a href="/person/{{person.id}}/delete" class="btn btn-danger active" role="button" aria-pressed="true">delete</a></td> #}
+        <td><button class="btn btn-danger">dupa</button></td>
+        <input type="hidden" name="_method" value="DELETE">
+      </form>
     </tr>
     {% endfor %}
   </tbody>
