@@ -43,7 +43,6 @@ class PersonController extends AbstractController
             $person->setLastname($data['lastname']);
             $person->setCreatedAt(new \DateTime('now'));
             $person->setUpdatedAt(new \DateTime('now'));
-            // $errors = $validator->validate($person);
             $people = $this->getDoctrine()
             ->getRepository(GroupOfPeople::class)
             ->findOneBy(['name' => $data['group']]);
@@ -75,7 +74,7 @@ class PersonController extends AbstractController
         return $this->render('Person/new.html.twig', ['form' =>  $form->createView()]);
     }
 
-    public function edit($id, Request $request, ValidatorInterface $validator)
+    public function edit($id, Request $request)
     {
         $person = $this->getDoctrine()
         ->getRepository(Person::class)
@@ -97,13 +96,11 @@ class PersonController extends AbstractController
             ->findOneBy(['name' => $data['group']]);
 
             $person->setPersonGroup($people);
-            $errors = $this->validator->validate($person);
+             $errors = $this->validator->validate($person);
 
             $errorsWithGroup = $this->validator->validatePropertyValue($person,'person_group',$data['group'] );
 
             if (count($errors) > 0 || count($errorsWithGroup) > 0) {
-                $errorsString = (string) $errors.(string) $errorsWithGroup;
-        
                 $this->addFlash('fail', (string) $errors);
 
                 $this->addFlash('fail', (string) $errorsWithGroup);

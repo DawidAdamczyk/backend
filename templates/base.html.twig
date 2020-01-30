@@ -10,18 +10,21 @@
         {% endblock %}
     </head>
     <body>
-        {% block body %}
-           {% include('inc/navbar.html.twig') %}
-
-           {% for message in app.flashes('success') %}
-             <div class="alert alert-success"> {{message}} </div>
-           {% endfor %}
-
-           {% for message in app.flashes('fail') %}
-             <div class="alert alert-danger"> {{message}} </div>
-           {% endfor %}
-
+        {% block navbar %}
+          {% include 'inc/navbar.html.twig' %}
         {% endblock %}
+        <div class="content mt-3">
+        {% block body %}
+          {% for message in app.flashes('success') %}
+            <div class="alert alert-success"> {{message}} </div>
+          {% endfor %}
+
+          {% for message in app.flashes('fail') %}
+            <div class="alert alert-danger"> {{message}} </div>
+          {% endfor %}
+          </div>
+        {% endblock %}
+        </div>
         {% block javascripts %}{% endblock %}
     </body>
 </html>

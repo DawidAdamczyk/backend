@@ -19,7 +19,7 @@ class GroupExistsValidator extends ConstraintValidator
     public function validate($value, Constraint $constraint)
     {
         //obsługuje przypadek, dla braku grupy (użytkownik nie musi być przypisany)
-         if (null === $value || '' === $value) {
+         if (null === $value || '' === $value || 'string' !== \gettype($value)) {
             return;
         }
 
