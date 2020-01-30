@@ -6,44 +6,44 @@ index:
 # Person 
 
 person_list:
-    path: /Persons
+    path: /Person
     controller: App\Controller\PersonController::list
     methods: GET
 
 person_new:
-    path: /Persons/new
+    path: /Person/new
     controller: App\Controller\PersonController::new
     methods: GET|PUT
 
 person_edit:
-    path: /Persons/{id}/edit
+    path: /Person/{id}/edit
     controller: App\Controller\PersonController::edit
     methods: GET|PUT
 
 person_delete:
-    path: /Persons/{id}/delete
+    path: /Person/{id}/delete
     controller: App\Controller\PersonController::delete
     methods: DELETE
 
 # Group
 
 group_list:
-    path: /Groups
+    path: /Group
     controller: App\Controller\GroupOfPeopleController::list
     methods: GET
 
 group_new:
-    path: /Groups/new
+    path: /Group/new
     controller: App\Controller\GroupOfPeopleController::new
     methods: GET|PUT
 
 group_edit:
-    path: /Groups/{id}/edit
+    path: /Group/{id}/edit
     controller: App\Controller\GroupOfPeopleController::edit
     methods: GET|PUT
 
 group_delete:
-    path: /Groups/{id}/delete
+    path: /Group/{id}/delete
     controller: App\Controller\GroupOfPeopleController::delete
     methods: DELETE
 

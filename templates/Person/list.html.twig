@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+{% if people %}
 <table class="table">
   <thead>
     <tr>
@@ -14,17 +15,16 @@
     </tr>
   </thead>
   <tbody>
-   {% for person in persons %}
+   {% for person in people %}
     <tr scope="row">
       <td>{{person.login}}</td>
       <td>{{person.firstname}}</td>
       <td>{{person.lastname}}</td>
       <td>{{person.createdat.date}}</td>
       <td>{{person.updatedat.date}}</td>
-      <td><a href="/person/{{person.id}}/edit" class="btn btn-primary active" role="button" aria-pressed="true">edit</a></td>
-      {# <td><a href="/person/{{person.id}}/delete" class="btn btn-danger active" role="button" aria-pressed="true">delete</a></td> #}
-      <form action="/Persons/{{person.id}}/delete" method="POST">
-        {# <td><a href="/person/{{person.id}}/delete" class="btn btn-danger active" role="button" aria-pressed="true">delete</a></td> #}
+      <td><a href="/Person/{{person.id}}/edit" class="btn btn-primary active" role="button" aria-pressed="true">edit</a></td>
+      {# celowo nie użyłem symfony forms w tym miejscu #}
+      <form action="/Person/{{person.id}}/delete" method="POST">
         <td><button class="btn btn-danger">delete</button></td>
         <input type="hidden" name="_method" value="DELETE">
       </form>
@@ -32,4 +32,7 @@
     {% endfor %}
   </tbody>
 </table>
+{% else %}
+  There are no users in the system
+{% endif %}
 {% endblock %}
