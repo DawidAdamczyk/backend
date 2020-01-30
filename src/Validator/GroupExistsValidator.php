@@ -5,7 +5,6 @@ namespace App\Validator;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use App\Repository\GroupOfPeopleRepository;
-// use App\Entity\GroupOfPeople;
 
 class GroupExistsValidator extends ConstraintValidator
 {
