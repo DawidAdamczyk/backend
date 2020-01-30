@@ -5,6 +5,8 @@ namespace App\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
+use App\Validator\DeleteGroup;
 use App\Entity\Person;
 use App\Entity\GroupOfPeople;
 use App\Form\GroupType;
@@ -71,8 +73,23 @@ class GroupOfPeopleController extends AbstractController
         return $this->render('Group/new.html.twig', ['form' =>  $form->createView()]);
     }
 
-    public function delete($id)
-    {
+    public function delete($id, ValidatorInterface $validator)
+     {
+        //     $validator = Validation::createValidator();
+        //     $violations = $validator->validate($id, [
+        //         new DeleteGroup(),
+        //     ]);
+
+        $constraint = new DeleteGroup();
+
+        $violations = $validator->validate($id, $constraint);
+        $errors =  $violations;
+        
+        if (count($errors) > 0) {
+            $errorsString = (string) $errors;
+    
+            return new Response($errorsString);
+        }
         $entityManager = $this->getDoctrine()->getManager();
 
         $group = $entityManager
