@@ -17,8 +17,6 @@ class DeleteGroupValidator extends ConstraintValidator
 
     public function validate($value, Constraint $constraint)
     {
-        $this->personRepository->find($value);
-
         $people = $this->personRepository->findOneBy(['person_group' => $value]);
 
         if ($people) {

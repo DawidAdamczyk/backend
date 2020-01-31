@@ -28,6 +28,7 @@ App\Entity\Person:
 
 App\Entity\GroupOfPeople: 
   constraints:
+    # W bazie pole name nie jest unikalne, ale uznałem za sensowne, aby to pole było unikalne
         - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: name
   properties:
     name:
